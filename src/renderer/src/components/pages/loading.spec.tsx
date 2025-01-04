@@ -4,8 +4,8 @@ import LoadingPage from './loading'
 
 describe('LoadingPage', () => {
   it('should render', () => {
-    render(<LoadingPage />)
+    const { container } = render(<LoadingPage />)
 
-    expect(screen.getByText('Carregando')).toBeInTheDocument()
+    expect(screen.getByText('Carregandos')).toBeInTheDocument()
   })
 })

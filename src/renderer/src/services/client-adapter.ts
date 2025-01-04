@@ -38,7 +38,7 @@ export default class AxiosClientAdapter {
   public async put<T>(resource: string, body?: any, headers?: any): Promise<Response<T>> {
     return this.req<T>('PUT', resource, headers, body)
   }
-
+  s
   public async delete<T>(resource: string, headers?: any): Promise<Response<T>> {
     return this.req<T>('DELETE', resource, headers)
   }
