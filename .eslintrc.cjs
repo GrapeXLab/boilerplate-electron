@@ -14,6 +14,7 @@ module.exports = {
         allowTypedFunctionExpressions: true,
         allowHigherOrderFunctions: true
       }
-    ]
+    ],
+    '@typescript-eslint/no-explicit-any': 'off'
   }
 }
