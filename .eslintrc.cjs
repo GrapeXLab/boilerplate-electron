@@ -8,7 +8,7 @@ module.exports = {
   ],
   rules: {
     '@typescript-eslint/explicit-function-return-type': [
-      'disabled',
+      'off',
       {
         allowExpressions: true,
         allowTypedFunctionExpressions: true,
