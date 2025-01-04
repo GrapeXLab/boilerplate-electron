@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  test:
-    name: Test
+  installdependencies:
+    name: Install dependencies
     runs-on: ubuntu-latest
 
     steps:
@@ -19,8 +19,30 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm
 
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+
       - name: Install dependencies
         run: pnpm install
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Restore dependencies cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Run tests
         run: pnpm test
@@ -35,11 +57,11 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      - name: Install dependencies
-        run: pnpm install
+      - name: Restore dependencies cache
+        uses: actions/cache@v2
+        with:
+             path: ~/.node_modules
+              key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Run linter
         run: pnpm lint
@@ -53,12 +75,12 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '20'
-
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      - name: Install dependencies
-        run: pnpm install
+      
+      - name: Restore dependencies cache
+        uses: actions/cache@v2
+        with:
+            path: ~/.node_modules
+            key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Build
         run: pnpm build
