@@ -47,7 +47,7 @@ export default function SignUpPage() {
           <div className="space-y-4">
             <div className="text-sm text-center">
               Já tem uma conta?{' '}
-              <Link to={'/sign-in'} className="text-blue-500 hover:underline">
+              <Link to={'/'} className="text-blue-500 hover:underline">
                 Faça login
               </Link>
             </div>

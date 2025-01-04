@@ -1,5 +1,12 @@
-import { Role, User } from '@renderer/types/user.types'
-import { ReactElement, createContext, useState, type ReactNode, useCallback } from 'react'
+import { Role, User } from '@renderer/types/user'
+import {
+  ReactElement,
+  createContext,
+  useState,
+  type ReactNode,
+  useCallback,
+  useContext
+} from 'react'
 
 type ObejectLogin = {
   password: string
@@ -51,4 +58,14 @@ export function AuthContextProvider({ children }: { children: ReactNode }): Reac
   return (
     <AuthContext.Provider value={{ ...authState, logout, login }}>{children}</AuthContext.Provider>
   )
+}
+
+export const useAuth = () => {
+  const context = useContext(AuthContext)
+
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider')
+  }
+
+  return context
 }

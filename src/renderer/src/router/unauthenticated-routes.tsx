@@ -7,7 +7,7 @@ const unauthenticatedRoutes: RouteObject[] = Object.entries(PAGES).map(([path, c
   const routePath = path
     .replace('../pages/(unauthenticated)', '')
     .replace(/\.tsx$/, '')
-    .replace(/\/index$/, '/')
+    .replace(/\/page$/, '/')
     .replace(/\[([^\]]+)\]/g, ':$1')
     .replace(/^\//, '')
 
@@ -18,4 +18,4 @@ const unauthenticatedRoutes: RouteObject[] = Object.entries(PAGES).map(([path, c
   }
 })
 
-export default unauthenticatedRoutes
+export { unauthenticatedRoutes }

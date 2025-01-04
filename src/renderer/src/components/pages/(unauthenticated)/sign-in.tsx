@@ -1,4 +1,4 @@
-import { ReactElement, useContext } from 'react'
+import { ReactElement } from 'react'
 
 import { Card, CardContent, CardFooter, CardHeader } from '@renderer/components/ui/card'
 import { Label } from '@renderer/components/ui/label'
@@ -10,13 +10,11 @@ import { Input } from '@renderer/components/ui/input'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { AuthContext } from '@renderer/context/auth'
+import { Link } from 'react-router-dom'
+import { useAuth } from '@renderer/context/auth'
 
 export default function LoginPage(): ReactElement {
-  const { login } = useContext(AuthContext)
-  const pathname = useLocation()
-  const navigate = useNavigate()
+  const { login } = useAuth()
 
   const schema = z.object({
     username: z.string().min(3, { message: 'O nome de usuário deve ter no mínimo 3 caracteres' }),
@@ -26,7 +24,6 @@ export default function LoginPage(): ReactElement {
   const onSubmit = async (values: z.infer<typeof schema>) => {
     try {
       await login(values)
-      console.log(values)
     } catch (error) {
       console.error(error)
     }

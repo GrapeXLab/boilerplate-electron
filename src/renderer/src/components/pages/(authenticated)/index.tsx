@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
 import { Button } from '@renderer/components/ui/button'
-import { AuthContext } from '@renderer/context/auth'
+import { AuthContext, useAuth } from '@renderer/context/auth'
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function Home() {
-  const { logout } = useContext(AuthContext)
+  const { logout } = useAuth()
   return (
     <div>
       <h1>Página Inicial</h1>

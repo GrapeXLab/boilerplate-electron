@@ -1,14 +1,14 @@
-import { Suspense, useContext } from 'react'
 import { HashRouter, useRoutes } from 'react-router-dom'
-import { authenticatedRoutes, unauthenticatedRoutes } from './router'
-
-import { AuthContext } from './context/auth'
-
+import { authenticatedRoutes } from './router/authenticated-routes'
+import { unauthenticatedRoutes } from './router/unauthenticated-routes'
+import { useAuth } from './context/auth'
+import { Suspense } from 'react'
 import NotFound from './components/pages/not-found'
 import Loading from './components/pages/loading'
 
 function Routes() {
-  const { isAuthenticated } = useContext(AuthContext)
+  const { isAuthenticated } = useAuth()
+
   const element = useRoutes(isAuthenticated ? authenticatedRoutes : unauthenticatedRoutes)
 
   if (!element) {
