@@ -6,8 +6,7 @@ on:
       - main
 
 jobs:
-  install:
-    name: Install dependencies
+  setup:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +21,21 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
-          path: ~/.node_modules
+          path: ~/.local/share/pnpm/store/v3
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+  install:
+    name: Install dependencies
+    runs-on: ubuntu-latest
+    needs: setup
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Restore dependencies cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.local/share/pnpm/store/v3
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Install dependencies
@@ -35,14 +48,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '20'
 
       - name: Restore dependencies cache
         uses: actions/cache@v2
         with:
-          path: ~/.node_modules
+          path: ~/.local/share/pnpm/store/v3
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Run tests
@@ -55,14 +65,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '20'
 
       - name: Restore dependencies cache
         uses: actions/cache@v2
         with:
-          path: ~/.node_modules
+          path: ~/.local/share/pnpm/store/v3
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Run linter
@@ -75,14 +82,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '20'
 
       - name: Restore dependencies cache
         uses: actions/cache@v2
         with:
-          path: ~/.node_modules
+          path: ~/.local/share/pnpm/store/v3
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Build
