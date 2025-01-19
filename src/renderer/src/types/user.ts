@@ -8,5 +8,6 @@ export type User = {
   name: string
   role: Role
   username: string
+  email: string
   token: string
 }

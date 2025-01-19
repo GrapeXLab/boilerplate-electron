@@ -1,14 +1,21 @@
-import { Response } from './response'
-import AxiosClientAdapter from './client-adapter'
+import { axiosInstance } from '../lib/client/axios.client'
+import { Requester } from './requester'
+import { AxiosInstance, AxiosResponse } from 'axios'
 
-export default class CustomerService {
-  public clientAdapter: AxiosClientAdapter
+class Customer {
+  public requester: Requester
 
-  constructor(clientAdapter: AxiosClientAdapter) {
-    this.clientAdapter = clientAdapter
+  constructor(client: AxiosInstance) {
+    this.requester = new Requester(client)
   }
 
-  public async findAll(): Promise<Response<any>> {
-    return this.clientAdapter.get<any>('/customers')
+  public async findAll(): Promise<AxiosResponse<any>> {
+    return this.requester.get<any>('/customers')
+  }
+
+  public async findById(id: string): Promise<AxiosResponse<any>> {
+    return this.requester.get<any>(`/customers/${id}`)
   }
 }
+
+export default new Customer(axiosInstance)
