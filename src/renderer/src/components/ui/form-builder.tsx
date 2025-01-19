@@ -76,10 +76,7 @@ type FormBuilderProps = {
   formBuilder: FormBuilderObj
 }
 
-type renderFieldProps = {
-  field: Field
-}
-function RenderFields(field: Field, props: any) {
+export function RenderFields(field: Field, props: any) {
   if (field.type === TypeField.Text) {
     return (
       <div>
@@ -145,7 +142,7 @@ export function FormBuilder({ formBuilder }: FormBuilderProps) {
           <FormField
             control={form.control}
             name="..."
-            render={({ field }) => (
+            render={() => (
               <FormItem>
                 <FormLabel />
                 <FormControl></FormControl>
