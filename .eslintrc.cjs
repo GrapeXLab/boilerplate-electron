@@ -15,6 +15,5 @@ module.exports = {
         allowHigherOrderFunctions: true
       }
     ],
-    '@typescript-eslint/no-explicit-any': 'off'
   }
 }

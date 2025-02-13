@@ -1,7 +1,6 @@
-import { ReactElement } from 'react'
 import { useParams } from 'react-router-dom'
 
-export default function Teste(): ReactElement {
+export default function Teste() {
   const { id } = useParams()
 
   return (
