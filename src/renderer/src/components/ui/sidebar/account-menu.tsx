@@ -16,14 +16,7 @@ import {
 import { DropdownMenuGroup } from '@radix-ui/react-dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
 import { useAuth } from '@renderer/context/auth'
-
-// const formatName = (name: string) => {
-//   let nameFormat: string
-//   const names = name.split(' ')
-//   if (names.length < 2) nameFormat = names[0][0] + names[0][1]
-//   else nameFormat = names[0][0] + names[1][0]
-//   return nameFormat
-// }
+import { cn } from '@renderer/lib/utils'
 
 export function AccountMenu({
   user
@@ -35,24 +28,26 @@ export function AccountMenu({
   }
 }) {
   const { logout } = useAuth()
-  const { isMobile } = useSidebar()
+  const { isMobile , open} = useSidebar()
   return (
-    <SidebarMenu>
+    <SidebarMenu >
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
-              size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              size={isMobile || !open ? 'default' : 'lg'}              
             >
-              <Avatar className="h-8 w-8 rounded-full bg-slate-700 flex items-center justify-center">
+              <Avatar className={cn(
+                "h-8 w-8",
+                "rounded-full bg-slate-700",
+                "flex items-center justify-center")}>
                 <AvatarImage src={user.avatar} alt={user.name} />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
-              <div className="grid flex-1 text-left text-sm leading-tight">
+              {open && <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">{user.name}</span>
                 <span className="truncate text-xs">{user.email}</span>
-              </div>
+              </div>}
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
@@ -63,8 +58,8 @@ export function AccountMenu({
             sideOffset={4}
           >
             <DropdownMenuLabel className="p-0 font-normal">
-              <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                <Avatar className="h-8 w-8 rounded-lg">
+              <div className="flex items-center justify-center gap-2 px-1 py-1.5 text-left text-sm">
+                <Avatar className="flex items-center justify-center h-10 w-10 rounded-lg">
                   <AvatarImage src={user.avatar} alt={user.name} />
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
