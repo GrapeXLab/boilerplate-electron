@@ -3,7 +3,7 @@ name: Quality assurance
 on:
   pull_request:
     branches:
-      - main
+      - v2
 
 jobs:
   test:
